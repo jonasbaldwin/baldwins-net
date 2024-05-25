@@ -6,7 +6,7 @@
 (def families {:baldwin {:year-offset 1 :members ["Gene" "Kyle" "Chris" "Devin" "Jonas" "Melissa"]}
                :breese {:year-offset 1 :members ["Sydney" "Michael" "Savannah" "Taylor" "Drew" "Cole"]}
                :porter {:year-offset 1 :members ["Ryan" "Sharon" "Melinda" "Blake"]}
-               :ray {:year-offset 1 :members ["Cindy Lynn" "Jason" "Josh" "Rachel" "Jenna" "Jared"]}})
+               :ray {:year-offset 3 :members ["Cindy Lynn" "Jason" "Josh" "Rachel" "Jenna" "Jared"]}})
 
 (def offset (r/atom 0))
 

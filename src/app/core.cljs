@@ -27,8 +27,8 @@
     (let [view (:view (:data @match))]
       [:div [:a {:href (rfe/href ::home) :class ["link"]} "Home"]
        [view @match]])
-    [:div
-     home-page]))
+    [:div [:a {:href (rfe/href ::home) :class ["link"]} "Home"]
+     [:div "Page not found."]]))
 
 (defn ^:export main []
   (rfe/start!

@@ -1,6 +1,6 @@
 # baldwins-net
 
-Code for [Baldwins.net](https://baldwins.net), primarily used for random things, like Christmas rotation lists.
+Code for [Baldwins.net](https://baldwins.net), primarily used for random things, like Christmas rotation lists for family and friends.
 
 ## Available Scripts
 
