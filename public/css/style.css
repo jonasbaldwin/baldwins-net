@@ -1,0 +1,53 @@
+body {
+    font-family: sans-serif;
+}
+
+.content {
+  width: 500px;
+  margin:0 auto;
+  text-align: center;
+}
+
+h1 { color: red }
+
+div.recipients p {
+  color: green;
+  font-size: 14pt;
+}
+
+nav {
+  display: flex;
+  color: #9c9c9c;
+  user-select: none;
+}
+nav > span {
+  width: 33%;
+}
+a.link, nav span:hover {
+  color: #000000;
+  cursor: pointer;
+}
+
+.clear {
+  clear: both;
+}
+
+.prev {
+  float: left;
+  text-align: left;
+}
+.current {
+  float: none;
+  text-align: center;
+}
+.next {
+  float: right;
+  text-align: right;
+}
+
+.disclaimer {
+  color: #dddddd;
+  position: fixed;
+  bottom: 0;
+  padding:20px;
+}
