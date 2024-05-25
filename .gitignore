@@ -1,5 +1,4 @@
 node_modules
-public/js
 out
 .shadow-cljs
 .nrepl-port
@@ -7,3 +6,5 @@ out
 yarn-error.log
 report.html
 .history/**
+public/dist
+public/js/cljs-runtime
