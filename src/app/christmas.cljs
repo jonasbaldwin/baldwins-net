@@ -3,9 +3,15 @@
             [reagent.core :as r]
             [reitit.frontend.easy :as rfe]))
 
+(def families {:baldwin {:members ["Gene" "Kyle" "Chris" "Devin" "Jonas" "Missy"]}
+               :breese {:members ["Sydney" "Michael" "Savannah" "Taylor" "Drew" "Cole"]}
+               :porter {:members ["Ryan" "Sharon" "Melinda" "Blake"]}
+               :ray {:year-offset 3 :members ["Cindy Lynn" "Jason" "Josh" "Rachel" "Jenna" "Jared"]}})
+
 ;; (def time (r/atom (t/instant)))
-(def now (r/atom (t/date-time)))
-(defonce year (int (t/year (t/date)))) ; don't use `now` since this only needs to be done once
+(def now (r/atom (t/date-time))) ; this is to compute the countdown til Christmas
+(defonce year (int (t/year (t/date)))) ; this is what the current year is (don't use `now` since this only needs to be done once)
+(def offset (r/atom 0)) ; this is for calculating which year should be displayed
 
 (defn set-time []
   (js/setTimeout (fn []
@@ -30,15 +36,6 @@
     [:div.christmas-countdown
      [:div.lable "Time until Christmas" (when (not= current-year calculation-year) (str " " calculation-year))]
      [:div.time [:span.days days] " " [:span.hours hours] " " [:span.minutes minutes] " " [:span.seconds seconds]]]))
-
-
-(def families {:baldwin {:year-offset 1 :members ["Gene" "Kyle" "Chris" "Devin" "Jonas" "Missy"]}
-               :breese {:year-offset 1 :members ["Sydney" "Michael" "Savannah" "Taylor" "Drew" "Cole"]}
-               :porter {:year-offset 1 :members ["Ryan" "Sharon" "Melinda" "Blake"]}
-               :ray {:year-offset 3 :members ["Cindy Lynn" "Jason" "Josh" "Rachel" "Jenna" "Jared"]}})
-
-(def offset (r/atom 0))
-
 
 (defn next-year [offset]
   [:span.link {:on-click #(swap! offset inc)} "Next Year →"])
@@ -86,7 +83,7 @@
             [:div [:h1 "Christmas " calculation-year]
              (when (crazy-finger-message @offset) [:div (crazy-finger-message @offset)])
              [:div.recipients
-              (for [p (assign-people members calculation-year year-offset)]
+              (for [p (assign-people members calculation-year (or year-offset 1))]
                 [:p {:key (str "gifter-" p)}
                  (first p) " has " (last p) "."])]
              [:nav
