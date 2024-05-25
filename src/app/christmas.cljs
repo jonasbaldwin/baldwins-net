@@ -3,7 +3,7 @@
             [reagent.core :as r]
             [reitit.frontend.easy :as rfe]))
 
-(def families {:baldwin {:year-offset 1 :members ["Gene" "Kyle" "Chris" "Devin" "Jonas" "Melissa"]}
+(def families {:baldwin {:year-offset 1 :members ["Gene" "Kyle" "Chris" "Devin" "Jonas" "Missy"]}
                :breese {:year-offset 1 :members ["Sydney" "Michael" "Savannah" "Taylor" "Drew" "Cole"]}
                :porter {:year-offset 1 :members ["Ryan" "Sharon" "Melinda" "Blake"]}
                :ray {:year-offset 3 :members ["Cindy Lynn" "Jason" "Josh" "Rachel" "Jenna" "Jared"]}})
@@ -54,17 +54,17 @@
         calculation-year (+ year @offset)
         {:keys [year-offset members]} ((keyword family) families)]
     (if members
-      [:div [:div.content
-             [:div [:h1 "Christmas " calculation-year]
-              (when (crazy-finger-message @offset) [:div (crazy-finger-message @offset)])
-              [:div.recipients
-               (for [p (assign-people members (+ year @offset) year-offset)]
-                 [:p {:key (str "gifter-" p)}
-                  (first p) " has " (last p) "."])]
-              [:nav
-               (if (> @offset 0) (prev-year offset) empty-span)
-               (if (> @offset 0) (reset-year offset) empty-span)
-               (next-year offset)]]]
+      [:<> [:div.content
+            [:div [:h1 "Christmas " calculation-year]
+             (when (crazy-finger-message @offset) [:div (crazy-finger-message @offset)])
+             [:div.recipients
+              (for [p (assign-people members (+ year @offset) year-offset)]
+                [:p {:key (str "gifter-" p)}
+                 (first p) " has " (last p) "."])]
+             [:nav
+              (if (> @offset 0) (prev-year offset) empty-span)
+              (if (> @offset 0) (reset-year offset) empty-span)
+              (next-year offset)]]]
        [:div.disclaimer "* If you notice errors on this page, please write a detailed note on a $20 bill and send it to Jonas."]]
       [:div [:div.content
              [:div "Family not found, but Merry Christmas anyway."]]])))
