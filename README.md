@@ -5,7 +5,7 @@ Code for [Baldwins.net](https://baldwins.net), primarily used for random things,
 --- 
 
 ## License
-This license does not apply to any person's name found in this repository (they are real people and should you fork this repository you are expected to scrub their names in your copy).
+The follow license does not apply to any person's name found in this repository. They are real people and if you fork this repository you are expected to scrub their names from your code so they do not appear anywhere in your copy.
 
 Copyright © 2024 Jonas Baldwin
 
