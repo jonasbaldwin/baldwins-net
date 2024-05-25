@@ -1,32 +1,36 @@
 body {
-    font-family: sans-serif;
+  font-family: sans-serif;
 }
 
 .content {
   width: 30vw;
   min-width: 365px;
   max-width: 500px;
-  margin:0 auto;
+  margin: 0 auto;
   text-align: center;
 }
 
-h1 { color: red }
+h1 {
+  color: red;
+}
 
 div.recipients p {
-  color: green;
+  color: #008000;
   font-size: 14pt;
 }
 
 nav {
   display: flex;
-  color: #9c9c9c;
+  color: #888888;
   user-select: none;
 }
+
 nav > span {
   width: 33%;
 }
+
 a.link, nav span:hover {
-  color: #000000;
+  color: #008000;
   cursor: pointer;
 }
 
@@ -38,18 +42,73 @@ a.link, nav span:hover {
   float: left;
   text-align: left;
 }
+
 .current {
   float: none;
   text-align: center;
 }
+
 .next {
   float: right;
   text-align: right;
 }
 
 .disclaimer {
-  color: #dddddd;
+  color: #aaaaaa;
   position: fixed;
   bottom: 0;
-  padding:20px;
+  padding: 20px;
 }
+
+.christmas-countdown {
+  background-color: #08b5ff;
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+  margin-top: 50px;
+}
+
+.christmas-countdown .lable {
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 10pt;
+}
+
+.christmas-countdown .time {
+  display: flex;
+  flex-direction: row;
+}
+
+.christmas-countdown .time span {
+  font-size: 20pt;
+  padding: 10px;
+  text-align: center;
+  diplay: inline-block;
+  flex-grow: 1;
+}
+
+.christmas-countdown .time span.days::after, .christmas-countdown .time span.hours::after, .christmas-countdown .time span.minutes::after, .christmas-countdown .time span.seconds::after {
+  display: inline-block;
+  margin-left: 0;
+  position: relative;
+  left: 5px;
+  font-size: 8pt;
+}
+
+.christmas-countdown .time span.days::after {
+  content: " days";
+}
+
+.christmas-countdown .time span.hours::after {
+  content: " hours";
+}
+
+.christmas-countdown .time span.minutes::after {
+  content: " minutes";
+}
+
+.christmas-countdown .time span.seconds::after {
+  content: " seconds";
+}
+
+/*# sourceMappingURL=style.css.map */

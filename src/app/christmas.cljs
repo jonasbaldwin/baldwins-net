@@ -1,7 +1,36 @@
 (ns app.christmas
-  (:require [cljs-time.core :as time]
+  (:require [tick.core :as t]
             [reagent.core :as r]
             [reitit.frontend.easy :as rfe]))
+
+;; (def time (r/atom (t/instant)))
+(def now (r/atom (t/date-time)))
+(defonce year (int (t/year (t/date)))) ; don't use `now` since this only needs to be done once
+
+(defn set-time []
+  (js/setTimeout (fn []
+                   (swap! now t/now)
+                   (set-time))
+                 1000))
+
+(set-time)
+
+(defn countdown [current-year calculation-year current-time]
+  (let [delta (t/between @current-time (t/at (t/new-date calculation-year 12 25) (t/new-time 0 0 0)))
+        days (t/days delta)
+        hours (t/hours (t/- delta
+                            (t/new-duration days :days)))
+        minutes (t/minutes (t/- delta
+                                (t/new-duration hours :hours)
+                                (t/new-duration days :days)))
+        seconds (t/seconds (t/- delta
+                                (t/new-duration minutes :minutes)
+                                (t/new-duration hours :hours)
+                                (t/new-duration days :days)))]
+    [:div.christmas-countdown
+     [:div.lable "Time until Christmas" (when (not= current-year calculation-year) (str " " calculation-year))]
+     [:div.time [:span.days days] " " [:span.hours hours] " " [:span.minutes minutes] " " [:span.seconds seconds]]]))
+
 
 (def families {:baldwin {:year-offset 1 :members ["Gene" "Kyle" "Chris" "Devin" "Jonas" "Missy"]}
                :breese {:year-offset 1 :members ["Sydney" "Michael" "Savannah" "Taylor" "Drew" "Cole"]}
@@ -10,7 +39,6 @@
 
 (def offset (r/atom 0))
 
-(def year (.getYear (time/now)))
 
 (defn next-year [offset]
   [:span.link {:on-click #(swap! offset inc)} "Next Year →"])
@@ -58,13 +86,14 @@
             [:div [:h1 "Christmas " calculation-year]
              (when (crazy-finger-message @offset) [:div (crazy-finger-message @offset)])
              [:div.recipients
-              (for [p (assign-people members (+ year @offset) year-offset)]
+              (for [p (assign-people members calculation-year year-offset)]
                 [:p {:key (str "gifter-" p)}
                  (first p) " has " (last p) "."])]
              [:nav
               (if (> @offset 0) (prev-year offset) empty-span)
               (if (> @offset 0) (reset-year offset) empty-span)
-              (next-year offset)]]]
+              (next-year offset)]]
+            [:<> (countdown year calculation-year now)]]
        [:div.disclaimer "* If you notice errors on this page, please write a detailed note on a $20 bill and send it to Jonas."]]
       [:div [:div.content
              [:div "Family not found, but Merry Christmas anyway."]]])))

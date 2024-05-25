@@ -33,7 +33,7 @@
 (defn ^:export main []
   (rfe/start!
    (rf/router routes {:data {:coercion rss/coercion}})
-   (fn [m] (reset! match m))
+   (fn [m] (reset! match m) (reset! christmas/offset 0))
     ;; set to false to enable HistoryAPI
    {:use-fragment true})
   (rd/render [current-page] (.getElementById js/document "app")))
