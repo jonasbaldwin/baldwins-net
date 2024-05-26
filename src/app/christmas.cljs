@@ -5,6 +5,7 @@
 
 (def families {:baldwin {:members ["Gene" "Kyle" "Chris" "Devin" "Jonas" "Missy"]}
                :breese {:members ["Sydney" "Michael" "Savannah" "Taylor" "Drew" "Cole"]}
+               :devin {:display "Devin's Family" :year-offset 3 :members ["Anna" "Nick" "Jane" "Lucy"]}
                :porter {:members ["Ryan" "Sharon" "Melinda" "Blake"]}
                :ray {:year-offset 3 :members ["Cindy Lynn" "Jason" "Josh" "Rachel" "Jenna" "Jared"]}})
 
@@ -102,8 +103,8 @@
 (def links [:div
             [:h2 "Christmas Lists"]
             [:ul
-             (for [[k _] families]
-               [:li {:key k} [:a {:href (rfe/href ::christmas {:family (name k)})} (str (clojure.string/capitalize (name k)))]])]])
+             (for [[k {:keys [display]}] families]
+               [:li {:key k} [:a {:href (rfe/href ::christmas {:family (name k)})} (or display (str (clojure.string/capitalize (name k))))]])]])
 
 (def routes
   [["/christmas/:family"
