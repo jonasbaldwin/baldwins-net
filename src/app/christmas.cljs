@@ -5,7 +5,7 @@
 
 (def families {:baldwin {:members ["Gene" "Kyle" "Chris" "Devin" "Jonas" "Missy"]}
                :breese {:members ["Sydney" "Michael" "Savannah" "Taylor" "Drew" "Cole"]}
-               :devin {:display "Devin's Family" :year-offset 3 :members ["Anna" "Nick" "Jane" "Lucy"]}
+               :devin {:display "Devin's Family" :members ["Lucy" "Jane" "Nick" "Anna"]}
                :porter {:members ["Ryan" "Sharon" "Melinda" "Blake"]}
                :ray {:year-offset 3 :members ["Cindy Lynn" "Jason" "Josh" "Rachel" "Jenna" "Jared"]}})
 
