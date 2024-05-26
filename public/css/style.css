@@ -68,6 +68,10 @@ a.link, nav span:hover {
   margin-top: 50px;
 }
 
+.christmas-countdown .shout {
+  font-size: 30pt;
+}
+
 .christmas-countdown .lable {
   text-transform: uppercase;
   letter-spacing: 5px;

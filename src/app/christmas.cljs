@@ -34,8 +34,11 @@
                                 (t/new-duration hours :hours)
                                 (t/new-duration days :days)))]
     [:div.christmas-countdown
-     [:div.lable "Time until Christmas" (when (not= current-year calculation-year) (str " " calculation-year))]
-     [:div.time [:span.days days] " " [:span.hours hours] " " [:span.minutes minutes] " " [:span.seconds seconds]]]))
+     (if (pos? seconds)
+       [:<>
+        [:div.lable "Time until Christmas" (when (not= current-year calculation-year) (str " " calculation-year))]
+        [:div.time [:span.days days] " " [:span.hours hours] " " [:span.minutes minutes] " " [:span.seconds seconds]]]
+       [:div.shout "Merry Christmas!!!"])]))
 
 (defn next-year [offset]
   [:span.link {:on-click #(swap! offset inc)} "Next Year →"])
