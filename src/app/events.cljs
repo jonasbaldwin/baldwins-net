@@ -14,8 +14,7 @@
 
 ; shows birthdays and anniversaries
 ; displays calendar with event dates highlited
-; displays list of next 5 events or next 30 days which ever is larger
-
+; displays list of next year of events
 
 
 (def families {:baldwin {:short :b}})
