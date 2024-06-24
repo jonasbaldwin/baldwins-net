@@ -2,15 +2,31 @@ body {
   font-family: sans-serif;
 }
 
+nav a {
+  padding: 15px;
+}
+
+a {
+  color: #888888;
+}
+
+a:hover {
+  color: #0068c9;
+}
+
 .content {
+  margin: 0 auto;
+  width: 80vw;
+}
+
+.content.christmas {
+  text-align: center;
   width: 30vw;
   min-width: 365px;
   max-width: 500px;
-  margin: 0 auto;
-  text-align: center;
 }
 
-h1 {
+.christmas h1, .christmas h2 {
   color: red;
 }
 
@@ -19,17 +35,17 @@ div.recipients p {
   font-size: 14pt;
 }
 
-nav {
+.nav {
   display: flex;
   color: #888888;
   user-select: none;
 }
 
-nav > span {
+.nav > span {
   width: 33%;
 }
 
-a.link, nav span:hover {
+a.link, .nav span:hover {
   color: #008000;
   cursor: pointer;
 }
@@ -113,6 +129,134 @@ a.link, nav span:hover {
 
 .christmas-countdown .time span.seconds::after {
   content: " seconds";
+}
+
+div.event {
+  padding: 20px;
+  border-radius: 20px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  align: center;
+}
+
+div.event.today {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+div.event.jan {
+  background-color: #002c7f;
+  color: white;
+}
+
+div.event.jan.today {
+  box-shadow: 0 0 40px 20px #b9cefd90;
+}
+
+div.event.feb {
+  background-color: #0080f8;
+  color: white;
+}
+
+div.event.feb.today {
+  box-shadow: 0 0 40px 20px #72ffbf90;
+}
+
+div.event.mar {
+  background-color: #006a12;
+  color: white;
+}
+
+div.event.mar.today {
+  box-shadow: 0 0 40px 20px #65f86390;
+}
+
+div.event.apr {
+  background-color: #f4ffa2;
+  color: black;
+}
+
+div.event.apr.today {
+  box-shadow: 0 0 40px 20px #6392f890;
+}
+
+div.event.may {
+  background-color: #ff77ef;
+  color: white;
+}
+
+div.event.may.today {
+  box-shadow: 0 0 40px 20px #6392f890;
+}
+
+div.event.jun {
+  background-color: #0d76a6;
+  color: white;
+}
+
+div.event.jun.today {
+  box-shadow: 0 0 40px 20px #6392f89a;
+}
+
+div.event.jul {
+  background-color: #ff3535;
+  color: white;
+}
+
+div.event.jul.today {
+  box-shadow: 0 0 40px 20px #00297b90;
+}
+
+div.event.aug {
+  background-color: #f8df00;
+  color: black;
+}
+
+div.event.aug.today {
+  box-shadow: 0 0 40px 20px #f86363f0;
+}
+
+div.event.sep {
+  background-color: #006a07;
+  color: white;
+}
+
+div.event.sep.today {
+  box-shadow: 0 0 40px 20px #f8dd6390;
+}
+
+div.event.oct {
+  background-color: #f8cf00;
+  color: white;
+}
+
+div.event.oct.today {
+  box-shadow: 0 0 40px 20px #f8636390;
+}
+
+div.event.nov {
+  background-color: #ff4400;
+  color: white;
+}
+
+div.event.nov.today {
+  box-shadow: 0 0 40px 20px #f8f66390;
+}
+
+div.event.dec {
+  background-color: #008006;
+  color: white;
+}
+
+div.event.dec.today {
+  box-shadow: 0 0 40px 20px #ff000090;
+}
+
+div.event .date {
+  text-transform: uppercase;
 }
 
 /*# sourceMappingURL=style.css.map */

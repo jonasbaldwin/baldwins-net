@@ -5,10 +5,15 @@
             [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]
             [reitit.coercion.spec :as rss]
-            [app.christmas :as christmas]))
+            [app.christmas :as christmas]
+            [app.events :as events]))
 
 (defn home-page "display home page" []
-  [:div christmas/links])
+  [:div.content
+   [:h1 "Welcome to Baldwins.net"]
+   [:ul
+    [:li [:a {:href (rfe/href ::events/family-events {:family "baldwin"})} "Events"] " - See a list of the next year's birthdays and anniversaries."]
+    [:li [:a {:href (rfe/href ::christmas/list)} "Christmas"] " - See who you have for Christmas."]]])
 
 (def home-routes
   [["/"
@@ -18,16 +23,25 @@
 (def routes
   (concat
    home-routes
-   christmas/routes))
+   christmas/routes
+   events/routes))
 
 (defonce match (r/atom nil))
+
+(defn app-links []
+  [:nav
+   [:a {:href (rfe/href ::home)} "Home"]
+  ;;  [:a {:href (rfe/href ::events/family-list)} "Events"]
+   [:a {:href (rfe/href ::events/family-events {:family "baldwin"})} "Events"]
+   [:a {:href (rfe/href ::christmas/list)} "Christmas"]])
 
 (defn current-page []
   (if @match
     (let [view (:view (:data @match))]
-      [:div [:a {:href (rfe/href ::home) :class ["link"]} "Home"]
+      [:div
+       (app-links)
        [view @match]])
-    [:div [:a {:href (rfe/href ::home) :class ["link"]} "Home"]
+    [:div app-links
      [:div "Page not found."]]))
 
 (defn ^:export main []

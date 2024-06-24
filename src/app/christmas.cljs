@@ -35,11 +35,11 @@
                                 (t/new-duration hours :hours)
                                 (t/new-duration days :days)))]
     [:div.christmas-countdown
-     (if (pos? seconds)
+     (if (or (neg? seconds) (neg? minutes) (neg? hours) (neg? days)) ; shows 0:0:0:0 then will show "Merry Christmas"
+       [:div.shout "Merry Christmas!!!"]
        [:<>
         [:div.lable "Time until Christmas" (when (not= current-year calculation-year) (str " " calculation-year))]
-        [:div.time [:span.days days] " " [:span.hours hours] " " [:span.minutes minutes] " " [:span.seconds seconds]]]
-       [:div.shout "Merry Christmas!!!"])]))
+        [:div.time [:span.days days] " " [:span.hours hours] " " [:span.minutes minutes] " " [:span.seconds seconds]]])]))
 
 (defn next-year [offset]
   [:span.link {:on-click #(swap! offset inc)} "Next Year →"])
@@ -83,14 +83,14 @@
         calculation-year (+ year @offset)
         {:keys [year-offset members]} ((keyword family) families)]
     (if members
-      [:<> [:div.content
+      [:<> [:div.content.christmas
             [:div [:h1 "Christmas " calculation-year]
              (when (crazy-finger-message @offset) [:div (crazy-finger-message @offset)])
              [:div.recipients
               (for [p (assign-people members calculation-year (or year-offset 1))]
                 [:p {:key (str "gifter-" p)}
                  (first p) " has " (last p) "."])]
-             [:nav
+             [:div.nav
               (if (> @offset 0) (prev-year offset) empty-span)
               (if (> @offset 0) (reset-year offset) empty-span)
               (next-year offset)]]
@@ -100,14 +100,19 @@
              [:div "Family not found, but Merry Christmas anyway."]]])))
 
 
-(def links [:div
-            [:h2 "Christmas Lists"]
-            [:ul
-             (for [[k {:keys [display]}] families]
-               [:li {:key k} [:a {:href (rfe/href ::christmas {:family (name k)})} (or display (str (clojure.string/capitalize (name k))))]])]])
+(defn links [match]
+  [:div.content
+   [:div.christmas
+    [:h1 "Christmas Lists"]
+    [:ul
+     (for [[k {:keys [display]}] families]
+       [:li {:key k} [:a {:href (rfe/href ::christmas {:family (name k)})} (or display (str (clojure.string/capitalize (name k))))]])]]])
 
 (def routes
   [["/christmas/:family"
     {:name ::christmas
      :view christmas-page
-     :parameters {:path {:family string?}}}]])
+     :parameters {:path {:family string?}}}]
+   ["/christmas"
+    {:name ::list
+     :view links}]])

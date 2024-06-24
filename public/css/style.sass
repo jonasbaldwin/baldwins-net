@@ -1,27 +1,90 @@
 $green: #008000
+$link: #888888
+$link-hover: #0068c9
+
+// Birthday colors
+$jan-bg: #002c7f
+$jan-cl: white
+$jan-sh: #b9cefd90
+
+$feb-bg: #0080f8
+$feb-cl: white
+$feb-sh: #72ffbf90
+
+$mar-bg: #006a12
+$mar-cl: white
+$mar-sh: #65f86390
+
+$apr-bg: #f4ffa2
+$apr-cl: black
+$apr-sh: #6392f890
+
+$may-bg: #ff77ef
+$may-cl: white
+$may-sh: #6392f890
+
+$jun-bg: #0d76a6
+$jun-cl: white
+$jun-sh: #6392f89a
+
+$jul-bg: #ff3535
+$jul-sh: #00297b90
+$jul-cl: white
+
+$aug-bg: #f8df00
+$aug-cl: black
+$aug-sh: #f86363f0
+
+$sep-bg: #006a07
+$sep-cl: white
+$sep-sh: #f8dd6390
+
+$oct-bg: #f8cf00
+$oct-cl: white
+$oct-sh: #f8636390
+
+$nov-bg: #ff4400
+$nov-cl: white
+$nov-sh: #f8f66390
+
+$dec-bg: #008006
+$dec-cl: white
+$dec-sh: #ff000090
 
 body
     font-family: sans-serif
+
+nav
+    a
+        padding: 15px
+
+a
+    color: $link
+    &:hover
+        color: $link-hover
 .content
-    width: 30vw
-    min-width: 365px
-    max-width: 500px
     margin: 0 auto
-    text-align: center
-h1
-    color: red
+    width: 80vw
+    &.christmas
+        text-align: center
+        width: 30vw
+        min-width: 365px
+        max-width: 500px
+.christmas
+    h1, h2
+        color: red
 div
     &.recipients
         p
             color: $green
             font-size: 14pt
-nav
+.nav
     display: flex
-    color: #888888
+    color: $link
     user-select: none
     & > span
         width: 33%
-a.link, nav span:hover
+a.link, .nav span:hover
     color: $green
     cursor: pointer
 .clear
@@ -79,3 +142,78 @@ a.link, nav span:hover
                 content: " minutes"
             &.seconds::after
                 content: " seconds"
+
+div.event
+    padding: 20px
+    border-radius: 20px
+    margin-top: 20px
+    margin-left: auto
+    margin-right: auto
+    width: 90%
+    align: center
+    &.today
+        text-align: center
+        margin-top: 50px
+        margin-bottom: 50px
+    &.jan
+        background-color: $jan-bg
+        color: $jan-cl
+        &.today
+            box-shadow: 0 0 40px 20px $jan-sh
+    &.feb
+        background-color: $feb-bg
+        color: $feb-cl
+        &.today
+            box-shadow: 0 0 40px 20px $feb-sh
+    &.mar
+        background-color: $mar-bg
+        color: $mar-cl
+        &.today
+            box-shadow: 0 0 40px 20px $mar-sh
+    &.apr
+        background-color: $apr-bg
+        color: $apr-cl
+        &.today
+            box-shadow: 0 0 40px 20px $apr-sh
+    &.may
+        background-color: $may-bg
+        color: $may-cl
+        &.today
+            box-shadow: 0 0 40px 20px $may-sh
+    &.jun
+        background-color: $jun-bg
+        color: $jun-cl
+        &.today
+            box-shadow: 0 0 40px 20px $jun-sh
+    &.jul
+        background-color: $jul-bg
+        color: $jul-cl
+        &.today
+            box-shadow: 0 0 40px 20px $jul-sh
+    &.aug
+        background-color: $aug-bg
+        color: $aug-cl
+        &.today
+            box-shadow: 0 0 40px 20px $aug-sh
+    &.sep
+        background-color: $sep-bg
+        color: $sep-cl
+        &.today
+            box-shadow: 0 0 40px 20px $sep-sh
+    &.oct
+        background-color: $oct-bg
+        color: $oct-cl
+        &.today
+            box-shadow: 0 0 40px 20px $oct-sh
+    &.nov
+        background-color: $nov-bg
+        color: $nov-cl
+        &.today
+            box-shadow: 0 0 40px 20px $nov-sh
+    &.dec
+        background-color: $dec-bg
+        color: $dec-cl
+        &.today
+            box-shadow: 0 0 40px 20px $dec-sh
+    .date
+        text-transform: uppercase

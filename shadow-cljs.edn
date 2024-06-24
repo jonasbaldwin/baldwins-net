@@ -14,9 +14,13 @@
   :e2e {:ns-regexp "e2e.*"
         :output-to "out/e2e.js"
         :target :node-test}}
- :dependencies [[reagent "0.8.1"]
+ :dependencies [[org.clojure/tools.reader "1.4.2"]
+                [testdouble/clojurescript.csv "0.8.0"]
+                [cljs-ajax "0.7.5"]
+                [reagent "0.8.1"]
+                [re-frame "1.4.3"]
+                [day8.re-frame/http-fx "0.2.4"]
                 [metosin/reitit "0.7.0"]
-                [devcards "0.2.6"]
                 [tick "0.7.5"]]
  :dev-http {3000 "public"}
  :nrepl {:port 3333}
