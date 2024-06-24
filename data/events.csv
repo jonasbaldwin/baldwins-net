@@ -1,0 +1,38 @@
+id,families,preferred-name,last-initial,partner,birth-month,birth-day,anniversary
+b-vic,b,Vic,B,b-kathy,11,30,1973-08-03
+b-kathy,b,Kathy,B,b-vic,2,9,
+b-gene,b,Gene,B,b-sharon,5,16,2014-04-04
+b-sharon,b,Sharon,B,b-gene,3,12,
+s-sydney,b,Sydney,S,s-raymond,8,8,2024-06-06
+s-raymond,b,Raymond,S,s-sydney,1,7,
+b-cole,b,Cole,B,,10,16,
+br-michael,b,Michael,Br,,2,24,
+br-savannah,b,Savannah,Br,,7,19,
+br-taylor,b,Taylor,Br,,10,8,
+br-drew,b,Drew,Br,,10,2,
+b-kyle,b,Kyle,B,,6,9,
+n-ashley,b,Ashley,N,n-skyler,9,12,2024-08-09
+n-skyler,b,Skyler,N,n-ashley,6,9,
+b-kaite,b,Kaite,B,,12,7,
+b-kami,b,Kami,B,,4,14,
+b-lyvi,b,Lyvi,B,,5,26,
+b-kenzey,b,Kenzey,B,,12,13,
+b-chris,b,Chris,B,b-chantelle,8,9,2008-09-20
+b-chantelle,b,Chantelle,B,b-chris,2,20,
+b-chelsea,b,Chelsea,B,,9,18,
+b-chayce,b,Chayce,B,,7,15,
+b-chaleb,b,Chaleb,B,,10,21,
+b-devin,b,Devin,B,b-julie,5,18,2007-01-16
+b-julie,b,Julie,B,b-devin,10,17,
+b-anna,b,Anna,B,,10,29,
+b-nick,b,Nick,B,,11,23,
+b-jane,b,Jane,B,,10,9,
+b-lucy,b,Lucy,B,,5,1,
+b-jonas,"b, r",Jonas,B,b-cindy,11,9,2008-08-22
+b-cindy,"b, r",Cindy,B,b-jonas,8,20,
+b-kate,"b, r",Kate,B,,3,25,
+g-briant,b,Briant,G,g-missy,1,8,
+g-missy,b,Missy,G,g-briant,6,21,2008-07-11
+g-andrew,b,Andrew,G,,6,22,
+g-callie,b,Callie,G,,5,17,
+g-emma,b,Emma,G,,11,7,
