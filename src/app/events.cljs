@@ -115,13 +115,13 @@
      (display-date date)
      [:div.salutation (if today? [:h2 (str "🎂 Happy Birthday " person "! 🎂")] (str possisive-name " Birthday"))]]))
 
-(defn display-anniversary [{:keys [people date]} all-people]
+(defn display-anniversary [{:keys [people date]} all-people today?]
   (let [[p1 p2] people
         p1 (p1 all-people)
         p2 (p2 all-people)]
     [:div.anniversary
      (display-date date)
-     (:preferred-name p1) " and " (:preferred-name p2) "'s Anniversary."]))
+     [:div.salutation (if today? [:h2 (str "Happy Aniversary ") (:preferred-name p1) " and " (:preferred-name p2) "!"] (str (:preferred-name p1) " and " (:preferred-name p2) "'s Anniversary."))]]))
 
 (defn display-event [{:keys [person people date] :as event} all-people]
   (let [month-class (string/lower-case (t/format (t/formatter "MMM") date))
@@ -131,7 +131,7 @@
     [:div.event {:key (str date "-" person people) :class class-list}
      (condp = (:type event)
        :birthday (display-birthday event today?)
-       :anniversary (display-anniversary event all-people))]))
+       :anniversary (display-anniversary event all-people today?))]))
 
 (defn events-page [match]
   (let [{:keys [path]} (:parameters match)
