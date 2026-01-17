@@ -123,12 +123,34 @@
      (display-date date)
      [:div.salutation (if today? [:h2 (str "Happy Anniversary ") (:preferred-name p1) " and " (:preferred-name p2) "!"] (str (:preferred-name p1) " and " (:preferred-name p2) "'s Anniversary."))]]))
 
-(defn display-event [{:keys [person people date] :as event} all-people]
+(defn get-event-message [{:keys [person people] :as event} all-people]
+  (condp = (:type event)
+    :birthday (str "🎂 Happy Birthday " person "! 🎂")
+    :anniversary (let [[p1 p2] people
+                       p1 (p1 all-people)
+                       p2 (p2 all-people)]
+                   (str "Happy Anniversary " (:preferred-name p1) " and " (:preferred-name p2) "!"))))
+
+(defn copy-to-clipboard [text]
+  (-> (.writeText (.-clipboard js/navigator) text)
+      (.then #(js/console.log "Copied to clipboard"))
+      (.catch #(js/console.error "Failed to copy to clipboard" %))))
+
+(defn handle-event-click [event all-people family today?]
+  (when today?
+    (let [message (get-event-message event all-people)
+          url (str "baldwins.net/events/" family)
+          text-to-copy (str message " " url)]
+      (copy-to-clipboard text-to-copy))))
+
+(defn display-event [{:keys [person people date] :as event} all-people family]
   (let [month-class (string/lower-case (t/format (t/formatter "MMM") date))
         today? (t/= date now)
         class-list (if today? [month-class "today"] month-class)]
     (when today? (shower-confetti))
-    [:div.event {:key (str date "-" person people) :class class-list}
+    [:div.event {:key (str date "-" person people)
+                 :class class-list
+                 :on-click #(handle-event-click event all-people family today?)}
      (condp = (:type event)
        :birthday (display-birthday event today?)
        :anniversary (display-anniversary event all-people today?))]))
@@ -141,7 +163,7 @@
     [:div.content [:h1 (str family-name " Family Events")]
      [:div.events
       (doall (for [e (:events @event-data)]
-               (display-event e (:people @event-data))))]]))
+               (display-event e (:people @event-data) family)))]]))
 
 (defn links [match]
   [:div.content
