@@ -13,7 +13,8 @@
    [:h1 "Welcome to Baldwins.net"]
    [:ul
     [:li [:a {:href (rfe/href ::events/family-events {:family "baldwin"})} "Events"] " - See a list of the next year's birthdays and anniversaries."]
-    [:li [:a {:href (rfe/href ::christmas/list)} "Christmas"] " - See who you have for Christmas."]]])
+    [:li [:a {:href (rfe/href ::christmas/list)} "Christmas"] " - See who you have for Christmas."]
+    [:li [:a {:href "/kyle-and-jenn.pdf"} "Kyle & Jenn's Wedding Info"]]]])
 
 (def home-routes
   [["/"
