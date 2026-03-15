@@ -35,6 +35,36 @@
          m
          (for [[k v] m :when (or (nil? v) (string/blank? v))] k)))
 
+(defn present-value? [value]
+  (and (some? value)
+       (not (and (string? value) (string/blank? value)))))
+
+(defn next-recurring-date [month day context]
+  (when (and (present-value? month) (present-value? day))
+    (try
+      (let [event-date (t/new-date this-year month day)]
+        (if (>= event-date now)
+          event-date
+          (t/new-date next-year month day)))
+      (catch :default error
+        (js/console.warn "Skipping invalid recurring date" (clj->js (assoc context :month month :day day :error (.-message error))))
+        nil))))
+
+(defn normalize-anniversary [anniversary]
+  (if (and (string? anniversary)
+           (re-matches #"\d{2}-\d{2}" anniversary))
+    (str this-year "-" anniversary)
+    anniversary))
+
+(defn anniversary-date [anniversary context]
+  (let [anniversary (normalize-anniversary anniversary)]
+    (when (present-value? anniversary)
+      (try
+        (t/date anniversary)
+        (catch :default error
+          (js/console.warn "Skipping invalid anniversary date" (clj->js (assoc context :anniversary anniversary :error (.-message error))))
+          nil)))))
+
 (defn csv-data->maps [csv-data]
   (map zipmap
        (->> (first csv-data) ; header
@@ -44,35 +74,32 @@
 
 (defn parse-person
   "parse a person's details"
-  [{:keys [birth-month birth-day partner] :as person}]
+  [{:keys [partner] :as person}]
   (let [person (-> person
                    (assoc :id (keyword (:id person))
                           :partner (when (and partner (not (string/blank? partner))) (keyword partner)))
                    cleanup-map)
-        birthday (t/new-date this-year birth-month birth-day)
-        next-birthday (if (>= birthday now)
-                        birthday
-                        (t/new-date next-year birth-month birth-day))]
-    (assoc person :next-birthday next-birthday)))
+        next-birthday (next-recurring-date (:birth-month person) (:birth-day person) {:id (:id person) :type :birthday})]
+    (cond-> person
+      next-birthday (assoc :next-birthday next-birthday))))
 
 (defn birthday [[_ {:keys [next-birthday preferred-name relation] :as person}]]
   {:type :birthday :person preferred-name :date next-birthday :relation relation})
 
 (defn anniversary [[_ {:keys [id partner anniversary]}]]
   ; tick's modification is still TBD so get values manually
-  (when anniversary
-    (let [wedding (t/date anniversary)
-          wedding-month (t/month wedding)
+  (when-let [wedding (anniversary-date anniversary {:id id :partner partner :type :anniversary})]
+    (let [wedding-month (t/month wedding)
           wedding-day (t/day-of-month wedding)
-          anniversary (t/new-date this-year wedding-month wedding-day)
-          next-anniversary (if (>= anniversary now)
-                             anniversary
-                             (t/new-date next-year wedding-month wedding-day))]
-      {:type :anniversary :people [id partner] :date next-anniversary :years (t/years (t/between wedding next-anniversary))})))
+          next-anniversary (next-recurring-date wedding-month wedding-day {:id id :partner partner :type :anniversary})]
+      (when next-anniversary
+        {:type :anniversary :people [id partner] :date next-anniversary :years (t/years (t/between wedding next-anniversary))}))))
 
 (defn prep-events [event-list]
   (let [people (reduce #(assoc %1 (-> %2 :id keyword) (parse-person %2)) {} event-list)
-        birthdays (map birthday people)
+        birthdays (->> people
+                       (filter (fn [[_ person]] (:next-birthday person)))
+                       (map birthday))
         anniversaries (as-> people $
                         (map anniversary $)
                         (remove #(nil? %) $)
@@ -139,7 +166,10 @@
 (defn handle-event-click [event all-people family today?]
   (when today?
     (let [message (get-event-message event all-people)
-          url (str "baldwins.net/events/" family)
+          route (rfe/href ::family-events {:family family})
+          url (str (.-origin js/location)
+                   (when-not (string/starts-with? route "/") "/")
+                   route)
           text-to-copy (str message " " url)]
       (copy-to-clipboard text-to-copy))))
 
