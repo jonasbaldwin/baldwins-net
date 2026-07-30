@@ -33,6 +33,10 @@ You can use existing npm React components directly via a [interop call](http://r
 Builds use [Shadow CLJS](https://github.com/thheller/shadow-cljs) for maximum compatibility with NPM libraries. You'll need a [Java SDK](https://adoptopenjdk.net/) (Version 8+, Hotspot) to use it. <br>
 You can [import npm libraries](https://shadow-cljs.github.io/docs/UsersGuide.html#js-deps) using Shadow CLJS. See the [user manual](https://shadow-cljs.github.io/docs/UsersGuide.html) for more information.
 
+### Event data
+
+Edit `data/events.csv`; it is the canonical source for birthdays and anniversaries. `npm start` and `npm run build` copy it to the served `public/data/events.csv` path before compiling. Run `npm run sync:data` to synchronize it without starting a compiler.
+
 ### `npm run cards`
 
 Runs the interactive live development enviroment.<br>
